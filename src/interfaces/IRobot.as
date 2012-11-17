@@ -14,7 +14,7 @@ package interfaces
 
 		function get upgrades():Vector.<IUpgrade>;
 
-		function get savePoint():IBoardElement
+		function get archiveLocation():IBoardElement
 
 		function get program():Vector.<IProgram>;
 	}
