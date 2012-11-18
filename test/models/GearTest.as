@@ -2,12 +2,14 @@ package models
 {
 	import constants.Direction;
 
-	import controller.MockGameController;
+	import controller.mocks.MockGameController;
 
 	import events.ControllerEvent;
 
 	import interfaces.IGameController;
 	import interfaces.IRobot;
+
+	import models.mocks.MockRobot;
 
 	public class GearTest
 	{

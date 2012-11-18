@@ -1,14 +1,10 @@
 package models
 {
-	import controller.MockGameController;
-
+	import interfaces.IFloor;
 	import interfaces.IGameController;
 	import interfaces.IRobot;
 
-	import org.flexunit.asserts.assertEquals;
-	import org.flexunit.asserts.assertNull;
-
-	public class BaseBoardElementTest
+	public class BaseFloor implements IFloor
 	{
 		//--------------------------------------------------------------------------
 		//
@@ -22,8 +18,9 @@ package models
 		//
 		//--------------------------------------------------------------------------
 
-		public function BaseBoardElementTest()
+		public function BaseFloor(controller:IGameController)
 		{
+			this.controller = controller;
 		}
 
 		//--------------------------------------------------------------------------
@@ -32,8 +29,7 @@ package models
 		//
 		//--------------------------------------------------------------------------
 
-		private var boardElement:BaseBoardElement;
-		private var controller:IGameController;
+		protected var controller:IGameController;
 
 		//--------------------------------------------------------------------------
 		//
@@ -41,37 +37,29 @@ package models
 		//
 		//--------------------------------------------------------------------------
 
+		//----------------------------------
+		//  occupant
+		//----------------------------------
+		private var _occupant:IRobot;
+
+		public function get occupant():IRobot
+		{
+			return _occupant;
+		}
+
+		public function set occupant(value:IRobot):void
+		{
+			if (value == _occupant)
+				return;
+
+			_occupant = value;
+		}
+
 		//--------------------------------------------------------------------------
 		//
 		//  Public Methods
 		//
 		//--------------------------------------------------------------------------
-
-		[Before]
-		public function setUp():void
-		{
-			controller = new MockGameController();
-			boardElement = new BaseBoardElement(controller);
-		}
-
-		[After]
-		public function tearDown():void
-		{
-			controller = null;
-			boardElement = null;
-		}
-
-		[Test]
-		public function testOccupant():void
-		{
-			var robot:IRobot = new MockRobot();
-
-			assertNull(boardElement.occupant);
-
-			boardElement.occupant = robot;
-
-			assertEquals(robot, boardElement.occupant);
-		}
 
 		//--------------------------------------------------------------------------
 		//
@@ -82,6 +70,12 @@ package models
 		//--------------------------------------------------------------------------
 		//
 		//  Private Methods
+		//
+		//--------------------------------------------------------------------------
+
+		//--------------------------------------------------------------------------
+		//
+		//  Overrides
 		//
 		//--------------------------------------------------------------------------
 	}

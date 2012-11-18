@@ -6,7 +6,7 @@ package models
 
 	import interfaces.IGameController;
 
-	public class Gear extends BaseBoardElement
+	public class Gear extends BaseFloor
 	{
 		//--------------------------------------------------------------------------
 		//

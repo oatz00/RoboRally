@@ -1,11 +1,11 @@
-package controller
+package models.mocks
 {
-	import flash.events.EventDispatcher;
-
-	import interfaces.IGameController;
+	import interfaces.IFloor;
+	import interfaces.IProgram;
 	import interfaces.IRobot;
+	import interfaces.IUpgrade;
 
-	public class MockGameController extends EventDispatcher implements IGameController
+	public class MockRobot implements IRobot
 	{
 		//--------------------------------------------------------------------------
 		//
@@ -19,7 +19,7 @@ package controller
 		//
 		//--------------------------------------------------------------------------
 
-		public function MockGameController()
+		public function MockRobot()
 		{
 		}
 
@@ -35,12 +35,55 @@ package controller
 		//
 		//--------------------------------------------------------------------------
 
-		public function moveRobot(robot:IRobot, direction:String):void
+		public function get direction():String
 		{
-
+			return "";
 		}
 
-		public function rotateRobot(robot:IRobot, direction:String):void
+		public function get name():String
+		{
+			return "";
+		}
+
+		public function get damage():int
+		{
+			return 0;
+		}
+
+		public function get lives():int
+		{
+			return 0;
+		}
+
+		public function get isPoweredDown():Boolean
+		{
+			return false;
+		}
+
+		public function set isPoweredDown(value:Boolean):void
+		{
+		}
+
+		public function get upgrades():Vector.<IUpgrade>
+		{
+			return null;
+		}
+
+		public function get archiveLocation():IFloor
+		{
+			return null;
+		}
+
+		public function set archiveLocation(value:IFloor):void
+		{
+		}
+
+		public function get program():Vector.<IProgram>
+		{
+			return null;
+		}
+
+		public function set program(value:Vector.<IProgram>):void
 		{
 		}
 
@@ -49,6 +92,22 @@ package controller
 		//  Public Methods
 		//
 		//--------------------------------------------------------------------------
+
+		public function rotate(direction:String):void
+		{
+		}
+
+		public function takeDamage(amount:int):void
+		{
+		}
+
+		public function addUpgrade(upgrade:IUpgrade):void
+		{
+		}
+
+		public function removeUpgrade(upgrade:IUpgrade):void
+		{
+		}
 
 		//--------------------------------------------------------------------------
 		//

@@ -5,7 +5,7 @@ package controller
 	import interfaces.IGameController;
 	import interfaces.IRobot;
 
-	import models.MockRobot;
+	import models.mocks.MockRobot;
 
 	public class GameControllerTest
 	{

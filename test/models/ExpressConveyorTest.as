@@ -6,6 +6,8 @@ package models
 
 	import interfaces.IRobot;
 
+	import models.mocks.MockRobot;
+
 	public class ExpressConveyorTest extends ConveyorTest
 	{
 		//--------------------------------------------------------------------------

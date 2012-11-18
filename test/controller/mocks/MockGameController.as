@@ -1,12 +1,11 @@
-package models
+package controller.mocks
 {
-	import constants.Direction;
-
-	import events.ControllerEvent;
+	import flash.events.EventDispatcher;
 
 	import interfaces.IGameController;
+	import interfaces.IRobot;
 
-	public class Pusher extends BaseFloor
+	public class MockGameController extends EventDispatcher implements IGameController
 	{
 		//--------------------------------------------------------------------------
 		//
@@ -20,16 +19,8 @@ package models
 		//
 		//--------------------------------------------------------------------------
 
-		public function Pusher(controller:IGameController, direction:String)
+		public function MockGameController()
 		{
-			super(controller);
-
-			if (Direction.isValid(direction))
-				this.direction = direction;
-			else
-				this.direction = Direction.UP;
-
-			controller.addEventListener(ControllerEvent.PUSH, pushEventHandler, false, 0, true);
 		}
 
 		//--------------------------------------------------------------------------
@@ -38,13 +29,20 @@ package models
 		//
 		//--------------------------------------------------------------------------
 
-		protected var direction:String;
-
 		//--------------------------------------------------------------------------
 		//
 		//  Properties
 		//
 		//--------------------------------------------------------------------------
+
+		public function moveRobot(robot:IRobot, direction:String):void
+		{
+
+		}
+
+		public function rotateRobot(robot:IRobot, direction:String):void
+		{
+		}
 
 		//--------------------------------------------------------------------------
 		//
@@ -58,28 +56,9 @@ package models
 		//
 		//--------------------------------------------------------------------------
 
-		protected function pushOccupant():void
-		{
-			if (!occupant)
-				return;
-
-			controller.moveRobot(occupant, direction);
-		}
-
-		protected function pushEventHandler(event:ControllerEvent):void
-		{
-			pushOccupant();
-		}
-
 		//--------------------------------------------------------------------------
 		//
 		//  Private Methods
-		//
-		//--------------------------------------------------------------------------
-
-		//--------------------------------------------------------------------------
-		//
-		//  Overrides
 		//
 		//--------------------------------------------------------------------------
 	}

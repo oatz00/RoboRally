@@ -22,5 +22,33 @@ package constants
 
 			return false;
 		}
+
+		public static function rotate(direction:String, rotation:String):String
+		{
+			if (rotation == LEFT)
+			{
+				if (direction == UP)
+					direction = LEFT;
+				else if (direction == LEFT)
+					direction = DOWN;
+				else if (direction == DOWN)
+					direction = RIGHT;
+				else
+					direction = UP;
+			}
+			else if (rotation == RIGHT)
+			{
+				if (direction == UP)
+					direction = RIGHT;
+				else if (direction == RIGHT)
+					direction = DOWN;
+				else if (direction == DOWN)
+					direction = LEFT;
+				else
+					direction = UP;
+			}
+
+			return direction;
+		}
 	}
 }

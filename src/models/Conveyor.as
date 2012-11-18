@@ -7,7 +7,7 @@ package models
 	import interfaces.IGameController;
 	import interfaces.IRobot;
 
-	public class Conveyor extends BaseBoardElement
+	public class Conveyor extends BaseFloor
 	{
 		//--------------------------------------------------------------------------
 		//
