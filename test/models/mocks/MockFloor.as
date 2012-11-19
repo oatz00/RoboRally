@@ -1,14 +1,9 @@
-package models
+package models.mocks
 {
-	import constants.Direction;
+	import interfaces.IFloor;
+	import interfaces.IRobot;
 
-	import events.ControllerEvent;
-
-	import interfaces.IGameController;
-
-	import utils.DirectionUtil;
-
-	public class Pusher extends BaseFloor
+	public class MockFloor implements IFloor
 	{
 		//--------------------------------------------------------------------------
 		//
@@ -22,16 +17,8 @@ package models
 		//
 		//--------------------------------------------------------------------------
 
-		public function Pusher(controller:IGameController, direction:String)
+		public function MockFloor()
 		{
-			super(controller);
-
-			if (DirectionUtil.isValid(direction))
-				this.direction = direction;
-			else
-				this.direction = Direction.UP;
-
-			controller.addEventListener(ControllerEvent.PUSH, pushEventHandler, false, 0, true);
 		}
 
 		//--------------------------------------------------------------------------
@@ -40,13 +27,20 @@ package models
 		//
 		//--------------------------------------------------------------------------
 
-		protected var direction:String;
-
 		//--------------------------------------------------------------------------
 		//
 		//  Properties
 		//
 		//--------------------------------------------------------------------------
+
+		public function get occupant():IRobot
+		{
+			return null;
+		}
+
+		public function set occupant(value:IRobot):void
+		{
+		}
 
 		//--------------------------------------------------------------------------
 		//
@@ -60,28 +54,9 @@ package models
 		//
 		//--------------------------------------------------------------------------
 
-		protected function pushOccupant():void
-		{
-			if (!occupant)
-				return;
-
-			controller.moveRobot(occupant, direction);
-		}
-
-		protected function pushEventHandler(event:ControllerEvent):void
-		{
-			pushOccupant();
-		}
-
 		//--------------------------------------------------------------------------
 		//
 		//  Private Methods
-		//
-		//--------------------------------------------------------------------------
-
-		//--------------------------------------------------------------------------
-		//
-		//  Overrides
 		//
 		//--------------------------------------------------------------------------
 	}

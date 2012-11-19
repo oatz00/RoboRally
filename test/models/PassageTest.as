@@ -2,13 +2,15 @@ package models
 {
 	import constants.Direction;
 
-	import events.ControllerEvent;
+	import interfaces.IFloor;
+	import interfaces.IPassage;
 
-	import interfaces.IGameController;
+	import models.mocks.MockFloor;
 
-	import utils.DirectionUtil;
+	import org.flexunit.asserts.assertEquals;
+	import org.flexunit.asserts.assertNull;
 
-	public class Pusher extends BaseFloor
+	public class PassageTest
 	{
 		//--------------------------------------------------------------------------
 		//
@@ -22,16 +24,8 @@ package models
 		//
 		//--------------------------------------------------------------------------
 
-		public function Pusher(controller:IGameController, direction:String)
+		public function PassageTest()
 		{
-			super(controller);
-
-			if (DirectionUtil.isValid(direction))
-				this.direction = direction;
-			else
-				this.direction = Direction.UP;
-
-			controller.addEventListener(ControllerEvent.PUSH, pushEventHandler, false, 0, true);
 		}
 
 		//--------------------------------------------------------------------------
@@ -39,8 +33,6 @@ package models
 		//  Variables
 		//
 		//--------------------------------------------------------------------------
-
-		protected var direction:String;
 
 		//--------------------------------------------------------------------------
 		//
@@ -53,6 +45,45 @@ package models
 		//  Public Methods
 		//
 		//--------------------------------------------------------------------------
+		[Before]
+		public function setUp():void
+		{
+
+		}
+
+		[After]
+		public function tearDown():void
+		{
+
+		}
+
+
+		[Test]
+		public function testConstructor():void
+		{
+			var floorA:IFloor = new MockFloor();
+			var floorB:IFloor = new MockFloor();
+
+			var passage:IPassage = new Passage(floorA, floorB, true, Direction.UP);
+
+			assertEquals(floorA, passage.from);
+			assertEquals(floorB, passage.to);
+			assertEquals(true, passage.hasWall);
+			assertEquals(Direction.UP, passage.laserDirection);
+
+			//Lasers require a wall
+			passage = new Passage(floorA, floorB, false, Direction.UP);
+
+			assertNull(passage.laserDirection);
+
+			passage = new Passage(floorA, floorA);
+
+			assertNull(passage.to);
+
+			floorA = null;
+			floorB = null;
+			passage = null;
+		}
 
 		//--------------------------------------------------------------------------
 		//
@@ -60,29 +91,11 @@ package models
 		//
 		//--------------------------------------------------------------------------
 
-		protected function pushOccupant():void
-		{
-			if (!occupant)
-				return;
-
-			controller.moveRobot(occupant, direction);
-		}
-
-		protected function pushEventHandler(event:ControllerEvent):void
-		{
-			pushOccupant();
-		}
-
 		//--------------------------------------------------------------------------
 		//
 		//  Private Methods
 		//
 		//--------------------------------------------------------------------------
 
-		//--------------------------------------------------------------------------
-		//
-		//  Overrides
-		//
-		//--------------------------------------------------------------------------
 	}
 }

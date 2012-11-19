@@ -2,6 +2,8 @@ package models
 {
 	import constants.Direction;
 
+	import events.RobotEvent;
+
 	import interfaces.IRobot;
 	import interfaces.IUpgrade;
 
@@ -137,7 +139,21 @@ package models
 		[Test]
 		public function testTakeDamage():void
 		{
-			//TODO: Add destruction and elimination listeners
+			var destroyedCount:int = 0;
+			var eliminatedCount:int = 0;
+
+			var destroyedHandler:Function = function():void
+			{
+				destroyedCount++;
+			}
+
+			var eliminatedHandler:Function = function ():void
+			{
+				eliminatedCount++;
+			}
+
+			robot.addEventListener(RobotEvent.DESTROYED, destroyedHandler);
+			robot.addEventListener(RobotEvent.ELIMINATED, eliminatedHandler);
 
 			robot.takeDamage(3);
 
@@ -148,11 +164,15 @@ package models
 
 			assertEquals(2, robot.damage);
 			assertEquals(2, robot.lives);
+			assertEquals(1, destroyedCount);
+			assertEquals(0, eliminatedCount);
 
 			robot.takeDamage(10);
 			robot.takeDamage(10);
 
 			assertEquals(0, robot.lives);
+			assertEquals(3, destroyedCount);
+			assertEquals(1, eliminatedCount);
 		}
 
 		//--------------------------------------------------------------------------

@@ -1,11 +1,13 @@
 package models.mocks
 {
+	import flash.events.EventDispatcher;
+
 	import interfaces.IFloor;
 	import interfaces.IProgram;
 	import interfaces.IRobot;
 	import interfaces.IUpgrade;
 
-	public class MockRobot implements IRobot
+	public class MockRobot extends EventDispatcher implements IRobot
 	{
 		//--------------------------------------------------------------------------
 		//

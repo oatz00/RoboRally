@@ -1,14 +1,8 @@
-package models
+package events
 {
-	import constants.Direction;
+	import flash.events.Event;
 
-	import events.ControllerEvent;
-
-	import interfaces.IGameController;
-
-	import utils.DirectionUtil;
-
-	public class Pusher extends BaseFloor
+	public class RobotEvent extends Event
 	{
 		//--------------------------------------------------------------------------
 		//
@@ -16,22 +10,20 @@ package models
 		//
 		//--------------------------------------------------------------------------
 
+		protected static const  PREFIX:String = "RobotEvent::";
+
+		public static const DESTROYED:String = PREFIX + "destroyed";
+		public static const ELIMINATED:String = PREFIX + "eliminated";
+
 		//--------------------------------------------------------------------------
 		//
 		//  Constructor
 		//
 		//--------------------------------------------------------------------------
 
-		public function Pusher(controller:IGameController, direction:String)
+		public function RobotEvent(type:String, bubbles:Boolean = false, cancelable:Boolean = false)
 		{
-			super(controller);
-
-			if (DirectionUtil.isValid(direction))
-				this.direction = direction;
-			else
-				this.direction = Direction.UP;
-
-			controller.addEventListener(ControllerEvent.PUSH, pushEventHandler, false, 0, true);
+			super(type, bubbles, cancelable);
 		}
 
 		//--------------------------------------------------------------------------
@@ -39,8 +31,6 @@ package models
 		//  Variables
 		//
 		//--------------------------------------------------------------------------
-
-		protected var direction:String;
 
 		//--------------------------------------------------------------------------
 		//
@@ -54,34 +44,20 @@ package models
 		//
 		//--------------------------------------------------------------------------
 
+		override public function clone():Event
+		{
+			return new RobotEvent(type, bubbles, cancelable);
+		}
+
 		//--------------------------------------------------------------------------
 		//
 		//  Protected Methods
 		//
 		//--------------------------------------------------------------------------
 
-		protected function pushOccupant():void
-		{
-			if (!occupant)
-				return;
-
-			controller.moveRobot(occupant, direction);
-		}
-
-		protected function pushEventHandler(event:ControllerEvent):void
-		{
-			pushOccupant();
-		}
-
 		//--------------------------------------------------------------------------
 		//
 		//  Private Methods
-		//
-		//--------------------------------------------------------------------------
-
-		//--------------------------------------------------------------------------
-		//
-		//  Overrides
 		//
 		//--------------------------------------------------------------------------
 	}

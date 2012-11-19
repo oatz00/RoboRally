@@ -2,12 +2,18 @@ package models
 {
 	import constants.Direction;
 
+	import events.RobotEvent;
+
+	import flash.events.EventDispatcher;
+
 	import interfaces.IFloor;
 	import interfaces.IProgram;
 	import interfaces.IRobot;
 	import interfaces.IUpgrade;
 
-	public class Robot implements IRobot
+	import utils.DirectionUtil;
+
+	public class Robot extends EventDispatcher implements IRobot
 	{
 		//--------------------------------------------------------------------------
 		//
@@ -159,10 +165,10 @@ package models
 
 		public function rotate(direction:String):void
 		{
-			if (!Direction.isValidRotation(direction))
+			if (!DirectionUtil.isValidRotation(direction))
 				return;
 
-			_direction = Direction.rotate(this.direction, direction);
+			_direction = DirectionUtil.rotate(this.direction, direction);
 		}
 
 		public function takeDamage(amount:int):void
@@ -174,12 +180,10 @@ package models
 				this._lives--;
 				this._damage = 2;
 
-				//TODO: Dispatch destruction
+				dispatchEvent(new RobotEvent(RobotEvent.DESTROYED));
 
 				if (lives == 0)
-				{
-					//TODO: Dispatch elimination
-				}
+					dispatchEvent(new RobotEvent(RobotEvent.ELIMINATED));
 			}
 		}
 

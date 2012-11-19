@@ -7,6 +7,8 @@ package models
 	import interfaces.IGameController;
 	import interfaces.IRobot;
 
+	import utils.DirectionUtil;
+
 	public class Conveyor extends BaseFloor
 	{
 		//--------------------------------------------------------------------------
@@ -25,12 +27,12 @@ package models
 		{
 			super(controller);
 
-			if (Direction.isValid(direction))
+			if (DirectionUtil.isValid(direction))
 				this.direction = direction;
 			else
 				this.direction = Direction.UP;
 
-			if (Direction.isValidRotation(rotation))
+			if (DirectionUtil.isValidRotation(rotation))
 				this.rotation = rotation;
 			else
 				this.rotation = null;

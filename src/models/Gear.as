@@ -6,6 +6,8 @@ package models
 
 	import interfaces.IGameController;
 
+	import utils.DirectionUtil;
+
 	public class Gear extends BaseFloor
 	{
 		//--------------------------------------------------------------------------
@@ -24,7 +26,7 @@ package models
 		{
 			super(controller);
 
-			if (Direction.isValidRotation(direction))
+			if (DirectionUtil.isValidRotation(direction))
 				this.direction = direction;
 			else
 				this.direction = Direction.LEFT;

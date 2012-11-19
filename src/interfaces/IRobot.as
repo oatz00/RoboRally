@@ -1,6 +1,8 @@
 package interfaces
 {
-	public interface IRobot
+	import flash.events.IEventDispatcher;
+
+	public interface IRobot extends IEventDispatcher
 	{
 		function get direction():String;
 
