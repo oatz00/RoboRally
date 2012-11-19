@@ -2,8 +2,12 @@ package controller
 {
 	import constants.Direction;
 
+	import interfaces.IBoard;
+
 	import interfaces.IGameController;
 	import interfaces.IRobot;
+
+	import models.mocks.MockBoard;
 
 	import models.mocks.MockRobot;
 
@@ -32,6 +36,7 @@ package controller
 		//--------------------------------------------------------------------------
 
 		private var gameController:IGameController;
+		private var board:IBoard;
 
 		//--------------------------------------------------------------------------
 		//
@@ -48,12 +53,14 @@ package controller
 		[Before]
 		public function setUp():void
 		{
-			gameController = new GameController(null);
+			board = new MockBoard();
+			gameController = new GameController(null, board);
 		}
 
 		[After]
 		public function tearDown():void
 		{
+			board = null;
 			gameController = null;
 		}
 

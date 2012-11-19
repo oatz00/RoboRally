@@ -1,14 +1,9 @@
-package controller
+package models.mocks
 {
-	import flash.events.EventDispatcher;
-
 	import interfaces.IBoard;
-	import interfaces.IGameController;
 	import interfaces.IRobot;
 
-	import utils.DirectionUtil;
-
-	public class GameController extends EventDispatcher implements IGameController
+	public class MockBoard implements IBoard
 	{
 		//--------------------------------------------------------------------------
 		//
@@ -22,10 +17,8 @@ package controller
 		//
 		//--------------------------------------------------------------------------
 
-		public function GameController(robots:Vector.<IRobot>, board:IBoard)
+		public function MockBoard()
 		{
-			this.robots = robots;
-			this.board = board;
 		}
 
 		//--------------------------------------------------------------------------
@@ -33,9 +26,6 @@ package controller
 		//  Variables
 		//
 		//--------------------------------------------------------------------------
-
-		protected var robots:Vector.<IRobot>;
-		protected var board:IBoard;
 
 		//--------------------------------------------------------------------------
 		//
@@ -51,18 +41,6 @@ package controller
 
 		public function moveRobot(robot:IRobot, direction:String):void
 		{
-			if (!DirectionUtil.isValid(direction))
-				return;
-
-			board.moveRobot(robot, direction);
-		}
-
-		public function rotateRobot(robot:IRobot, direction:String):void
-		{
-			if (!DirectionUtil.isValidRotation(direction))
-				return;
-
-			robot.rotate(direction);
 		}
 
 		//--------------------------------------------------------------------------
@@ -74,12 +52,6 @@ package controller
 		//--------------------------------------------------------------------------
 		//
 		//  Private Methods
-		//
-		//--------------------------------------------------------------------------
-
-		//--------------------------------------------------------------------------
-		//
-		//  Overrides
 		//
 		//--------------------------------------------------------------------------
 	}
