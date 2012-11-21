@@ -10,6 +10,7 @@ package events
 		public static const CONVEY:String = PREFIX + "convey";
 		public static const PUSH:String = PREFIX + "push";
 		public static const ROTATE:String = PREFIX + "rotate";
+		public static const KILL:String = PREFIX + "kill";
 
 		public function ControllerEvent(type:String, bubbles:Boolean = false, cancelable:Boolean = false)
 		{

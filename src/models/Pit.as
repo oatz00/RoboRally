@@ -1,14 +1,14 @@
-package controller
+package models
 {
-	import flash.events.EventDispatcher;
+	import constants.Direction;
 
-	import interfaces.IBoard;
+	import events.ControllerEvent;
+
 	import interfaces.IGameController;
-	import interfaces.IRobot;
 
 	import utils.DirectionUtil;
 
-	public class GameController extends EventDispatcher implements IGameController
+	public class Pit extends BaseFloor
 	{
 		//--------------------------------------------------------------------------
 		//
@@ -22,10 +22,16 @@ package controller
 		//
 		//--------------------------------------------------------------------------
 
-		public function GameController(robots:Vector.<IRobot>, board:IBoard)
+		public function Pit(controller:IGameController, direction:String)
 		{
-			this.robots = robots;
-			this.board = board;
+			super(controller);
+
+			if (DirectionUtil.isValid(direction))
+				this.direction = direction;
+			else
+				this.direction = Direction.UP;
+
+			controller.addEventListener(ControllerEvent.KILL, pitEventHandler, false, 0, true);
 		}
 
 		//--------------------------------------------------------------------------
@@ -34,8 +40,7 @@ package controller
 		//
 		//--------------------------------------------------------------------------
 
-		protected var robots:Vector.<IRobot>;
-		protected var board:IBoard;
+		protected var direction:String;
 
 		//--------------------------------------------------------------------------
 		//
@@ -49,32 +54,24 @@ package controller
 		//
 		//--------------------------------------------------------------------------
 
-		public function moveRobot(robot:IRobot, direction:String):void
-		{
-			if (!DirectionUtil.isValid(direction))
-				return;
-
-			board.moveRobot(robot, direction);
-		}
-
-		public function rotateRobot(robot:IRobot, direction:String):void
-		{
-			if (!DirectionUtil.isValidRotation(direction))
-				return;
-
-			robot.rotate(direction);
-		}
-
-		public function killRobot(robot:IRobot):void
-		{
-			//stub;
-		}
-
 		//--------------------------------------------------------------------------
 		//
 		//  Protected Methods
 		//
 		//--------------------------------------------------------------------------
+
+		protected function killOccupant():void
+		{
+			if (!occupant)
+				return;
+
+			controller.killRobot(occupant);
+		}
+
+		protected function pitEventHandler(event:ControllerEvent):void
+		{
+			killOccupant();
+		}
 
 		//--------------------------------------------------------------------------
 		//
